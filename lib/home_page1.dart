@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/register.dart';
 
 class HomePage1 extends StatelessWidget {
   const HomePage1({super.key});
@@ -31,7 +32,13 @@ class HomePage1 extends StatelessWidget {
                   child: Text("Login", style: TextStyle(color: Colors.white)),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register()),
+                    );
+                  },
+
                   style: TextButton.styleFrom(
                     minimumSize: Size(150, 60),
                     backgroundColor: Colors.black,
