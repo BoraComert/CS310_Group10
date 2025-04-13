@@ -17,6 +17,12 @@ class MyApp extends StatelessWidget {
           "SuConnect",
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         ),
+          actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
         body:Center(child: Column(children: [
           
