@@ -24,15 +24,15 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
-        body:Center(child: Column(children: [
+        body: EventListScreen(),
           
           
                        
                        
-      ]
-     )),
-     )
-    );
+      
+     ),
+     );
+    
   }
 }
 
