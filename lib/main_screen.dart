@@ -24,11 +24,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
-        body: EventListScreen(),
-          
-          
-                       
-                       
+        body: EventListScreen(),        
       
      ),
      );
