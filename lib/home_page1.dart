@@ -22,7 +22,14 @@ class HomePage1 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginClass()),
+                    );
+
+                  },
                   style: TextButton.styleFrom(
                     minimumSize: Size(150, 60),
                     backgroundColor: Colors.black,
