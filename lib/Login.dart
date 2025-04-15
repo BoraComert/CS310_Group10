@@ -91,7 +91,7 @@ class _LoginClassState extends State<LoginClass> {
                     // Login successful
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CreateEventScreen()),
+                      MaterialPageRoute(builder: (context) => EventListScreen()),
                     );
                   },
                   style: TextButton.styleFrom(
