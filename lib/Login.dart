@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/terms_policy.dart';
+import 'main_screen.dart'
 
 class LoginClass extends StatefulWidget {
   const LoginClass({super.key});
@@ -71,7 +72,7 @@ class _LoginClassState extends State<LoginClass> {
             ),
             TextButton(
               onPressed: () {
-                // Navigate to password reset or support
+                
               },
               style: TextButton.styleFrom(
                 minimumSize: Size(30, 20),
