@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'Create_Event_Screen.dart';
 
+/*
+// ABİ BURA NE ALAKA NİE 2 VOİD MAİN VAR BİZİM VOİD MAİN ZATEN MAİN.DART'TA
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
      );
     
   }
-}
+}*/
 
 class SuEvent {
   final String title;
@@ -74,6 +76,23 @@ class EventListScreen extends StatelessWidget {
     ),
   ];
 
+  final List<SuEvent> myEvents = [
+    SuEvent(
+      title: 'Private Tech Workshop',
+      date: 'April 21, 2025',
+      duration: '2 hours',
+      category: 'Technology',
+      info: 'Exclusive workshop on Flutter development.',
+    ),
+    SuEvent(
+      title: 'Charity Concert',
+      date: 'April 23, 2025',
+      duration: '3 hours',
+      category: 'Charity',
+      info: 'A concert for charity with various performances.',
+    ),
+  ];
+
   EventListScreen({super.key});
 
   @override
@@ -81,55 +100,103 @@ class EventListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Upcoming Events'),
-        
         elevation: 1,
       ),
-      body: ListView.builder(
-        itemCount: events.length,
-        itemBuilder: (context, index) {
-          final event = events[index];
-          return Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Color(0xFFE0E0E0), // Light gray divider
-                  width: 1,
-                ),
+      body: ListView(
+        children: [
+          // Upcoming Events Section
+          Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  final event = events[index];
+                  return Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE0E0E0), // Light gray divider
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+                        childrenPadding: const EdgeInsets.symmetric(horizontal: 16),
+                        title: Text(event.title),
+                        subtitle: Text('${event.date} • ${event.category}'),
+                        children: [
+                          const SizedBox(height: 8),
+                          Text('Duration: ${event.duration}'),
+                          const SizedBox(height: 4),
+                          Text('Info: ${event.info}'),
+                          const SizedBox(height: 12),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-              child: ExpansionTile(
-                tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-                childrenPadding: const EdgeInsets.symmetric(horizontal: 16),
-                title: Text(event.title),
-                subtitle: Text('${event.date} • ${event.category}'),
-                children: [
-                  const SizedBox(height: 8),
-                  Text('Duration: ${event.duration}'),
-                  const SizedBox(height: 4),
-                  Text('Info: ${event.info}'),
-                  const SizedBox(height: 12),
-                ],
+              const SizedBox(height: 20), // Space between Upcoming Events and My Events
+              const Text(
+                'My Events',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-            ),
+              const SizedBox(height: 10), // Space before My Events list
+              // My Events Section
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: myEvents.length,
+                itemBuilder: (context, index) {
+                  final event = myEvents[index];
+                  return Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE0E0E0), // Light gray divider
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: Theme(
+                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+                        childrenPadding: const EdgeInsets.symmetric(horizontal: 16),
+                        title: Text(event.title),
+                        subtitle: Text('${event.date} • ${event.category}'),
+                        children: [
+                          const SizedBox(height: 8),
+                          Text('Duration: ${event.duration}'),
+                          const SizedBox(height: 4),
+                          Text('Info: ${event.info}'),
+                          const SizedBox(height: 12),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateEventScreen()),
           );
         },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.blue,
       ),
-       floatingActionButton: FloatingActionButton(
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const CreateEventScreen()),
-      );
-    },
-    child: const Icon(Icons.add),
-    backgroundColor: Colors.blue,
-  ),
     );
   }
 }
-
-
-      
-
