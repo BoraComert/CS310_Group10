@@ -51,7 +51,15 @@ class SuEvent {
   });
 }
 
-class EventListScreen extends StatelessWidget {
+class EventListScreen extends StatefulWidget {
+  const EventListScreen({super.key});
+
+  @override
+  State<EventListScreen> createState() => _EventListScreenState();
+}
+
+
+class _EventListScreenState extends State<EventListScreen> {
   final List<SuEvent> events = [
     SuEvent(
       title: 'Art Exhibition',
@@ -93,7 +101,7 @@ class EventListScreen extends StatelessWidget {
     ),
   ];
 
-  EventListScreen({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -188,11 +196,16 @@ class EventListScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final newEvent = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateEventScreen()),
-          );
+            MaterialPageRoute(builder: (context) => const CreateEventScreen())
+           );
+          if (newEvent != null && newEvent is SuEvent){
+            setState(() {
+              myEvents.add(newEvent);
+            });
+          }
         },
         child: const Icon(Icons.add),
         backgroundColor: Colors.blue,
