@@ -1,39 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Create_Event_Screen.dart';
 
-/*
-// ABİ BURA NE ALAKA NİE 2 VOİD MAİN VAR BİZİM VOİD MAİN ZATEN MAİN.DART'TA
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-        title: Text(
-          "SuConnect",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-          actions: [
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
-      ),
-        body: EventListScreen(),        
-      
-     ),
-     );
-    
-  }
-}*/
 
 class SuEvent {
   final String title;
@@ -106,10 +73,26 @@ class _EventListScreenState extends State<EventListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Upcoming Events'),
-        elevation: 1,
+     appBar: AppBar(
+  elevation: 1,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      const Text(
+        'SuConnect',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
+      IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () {
+          // Navigate to settings or perform some action
+          print("Settings tapped");
+        },
+      ),
+    ],
+  ),
+),
+
       body: ListView(
         children: [
           // Upcoming Events Section
