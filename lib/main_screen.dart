@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/Login.dart';
+import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
-import 'Login.dart';
+
 
 class SuEvent {
   final String title;
@@ -89,7 +90,7 @@ class _EventListScreenState extends State<EventListScreen> {
   // Navigate to settings or perform some action
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LoginClass()),
+      MaterialPageRoute(builder: (context) => SettingsPage()),
     );
                       },
 
