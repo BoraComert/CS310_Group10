@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
-import 'main_screen.dart'
+import 'main_screen.dart';
 
 class LoginClass extends StatefulWidget {
   const LoginClass({super.key});
