@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/Login.dart';
 import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
-import 'Upcoming_events.dart'; 
+
 
 class SuEvent {
   final String title;
@@ -26,6 +26,7 @@ class EventListScreen extends StatefulWidget {
   @override
   State<EventListScreen> createState() => _EventListScreenState();
 }
+
 
 class _EventListScreenState extends State<EventListScreen> {
   final List<SuEvent> events = [
@@ -69,68 +70,43 @@ class _EventListScreenState extends State<EventListScreen> {
     ),
   ];
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'SuConnect',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                );
-              },
-            ),
-          ],
-        ),
+     appBar: AppBar(
+  elevation: 1,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      const Text(
+        'SuConnect',
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
+      IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () {
+  // Navigate to settings or perform some action
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsPage()),
+    );
+                      },
+
+      ),
+    ],
+  ),
+),
+
       body: ListView(
         children: [
+          // Upcoming Events Section
           Column(
             children: [
-              // Tappable Upcoming Events title
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,MaterialPageRoute(builder: (context) => UpcomingEventsPage()),
-                              );
-                            },
-                        child: Row(
-                                children: const [
-                                  Text(
-                                  'Upcoming Events',
-                                   style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  ),
-                                ),
-                          SizedBox(width: 8),
-                          Icon(Icons.calendar_today, size: 24, color: Colors.black),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Upcoming Events List
               ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: events.length,
                 itemBuilder: (context, index) {
                   final event = events[index];
@@ -138,7 +114,7 @@ class _EventListScreenState extends State<EventListScreen> {
                     decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Color(0xFFE0E0E0),
+                          color: Color(0xFFE0E0E0), // Light gray divider
                           width: 1,
                         ),
                       ),
@@ -162,23 +138,17 @@ class _EventListScreenState extends State<EventListScreen> {
                   );
                 },
               ),
-              const SizedBox(height: 20),
-              Padding(
-  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-  child: Align(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      'My Events',
-      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-    ),
-  ),
-),
-
-              const SizedBox(height: 10),
-              // My Events List
+              const SizedBox(height: 20), // Space between Upcoming Events and My Events
+              const Text(
+                'My Events',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10), // Space before My Events list
+              // My Events Section
               ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: myEvents.length,
                 itemBuilder: (context, index) {
                   final event = myEvents[index];
@@ -186,7 +156,7 @@ class _EventListScreenState extends State<EventListScreen> {
                     decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Color(0xFFE0E0E0),
+                          color: Color(0xFFE0E0E0), // Light gray divider
                           width: 1,
                         ),
                       ),
@@ -218,9 +188,9 @@ class _EventListScreenState extends State<EventListScreen> {
         onPressed: () async {
           final newEvent = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateEventScreen()),
-          );
-          if (newEvent != null && newEvent is SuEvent) {
+            MaterialPageRoute(builder: (context) => const CreateEventScreen())
+           );
+          if (newEvent != null && newEvent is SuEvent){
             setState(() {
               myEvents.add(newEvent);
             });
