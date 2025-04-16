@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/Login.dart';
 import 'Create_Event_Screen.dart';
-
+import 'Login.dart';
 
 class SuEvent {
   final String title;
@@ -85,9 +86,13 @@ class _EventListScreenState extends State<EventListScreen> {
       IconButton(
         icon: const Icon(Icons.settings),
         onPressed: () {
-          // Navigate to settings or perform some action
-          print("Settings tapped");
-        },
+  // Navigate to settings or perform some action
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginClass()),
+    );
+                      },
+
       ),
     ],
   ),
