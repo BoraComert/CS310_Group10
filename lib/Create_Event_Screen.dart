@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/main_screen.dart';
+import 'utils.dart';
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
@@ -20,80 +21,45 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Event'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 1,
-      ),
+      appBar: Utilities.appBar("Create Event",Colors.white),
+      
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
+              Utilities.customTextField(
                 controller: user_title_controller,
-                decoration: const InputDecoration(
-                  labelText: 'Event Title',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter event title';
-                  }
-                  return null;
-                },
+                label: "Event Title",
+                
               ),
+              
               const SizedBox(height: 12),
-              TextFormField(
+              Utilities.customTextField(
                 controller: user_date_controller,
-                decoration: const InputDecoration(
-                  labelText: 'Date (05,30,2022) Month/Day/year',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter event date';
-                  }
-                  return null;
-                },
+                label: "Date (05,30,2022) Month/Day/year",
               ),
+              
               const SizedBox(height: 12),
-              TextFormField(
+
+              Utilities.customTextField(
                 controller: user_duration_controller,
-                decoration: const InputDecoration(
-                  labelText: 'Duration (hours)',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value){
-                  if(value == null || value.isEmpty){
-                    return "Please enter your event duration";
-                  }
-                },
+                label: "Duration (Hours)",
               ),
+              
               const SizedBox(height: 12),
-              TextFormField(
+              Utilities.customTextField(
                 controller: user_category_controller,
-                decoration: const InputDecoration(
-                  labelText: 'Category',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if(value==null || value.isEmpty){
-                    return "Please enter your event category.";
-                  }
-                },
+                label: "Category",
               ),
+              
               const SizedBox(height: 12),
-              TextFormField(
+              Utilities.customTextField(
                 controller: user_info_controller,
-                decoration: const InputDecoration(
-                  labelText: 'Specific information (optional)',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
+                label: "Specific information (optional)",
               ),
+              
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {

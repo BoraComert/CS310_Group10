@@ -1,37 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'utils.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: UpcomingEventsPage(),
-    );
-  }
-}
-
-class SuEvent {
-  final String title;
-  final String date;
-  final String duration;
-  final String category;
-  final String info;
-
-  SuEvent({
-    required this.title,
-    required this.date,
-    required this.duration,
-    required this.category,
-    required this.info,
-  });
-}
 
 class UpcomingEventsPage extends StatefulWidget {
   const UpcomingEventsPage({super.key});

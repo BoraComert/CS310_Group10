@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
+import 'package:flutter_demo/utils.dart';
 import 'main_screen.dart';
 
 class LoginClass extends StatefulWidget {
@@ -21,12 +22,7 @@ class _LoginClassState extends State<LoginClass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "SuConnect",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: Utilities.appBar("SuConnect", Colors.white),
       body: Builder(
         builder: (context) => Center(
           child: SingleChildScrollView(

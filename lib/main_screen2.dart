@@ -2,23 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/Login.dart';
 import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
+import 'utils.dart';
 
-
-class SuEvent {
-  final String title;
-  final String date;
-  final String duration;
-  final String category;
-  final String info;
-
-  SuEvent({
-    required this.title,
-    required this.date,
-    required this.duration,
-    required this.category,
-    required this.info,
-  });
-}
 
 class EventListScreen extends StatefulWidget {
   const EventListScreen({super.key});
