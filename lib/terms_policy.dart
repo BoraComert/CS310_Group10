@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/utils.dart';
 
 class TermsPolicy extends StatelessWidget {
   const TermsPolicy({super.key});
@@ -28,10 +29,7 @@ class TermsPolicy extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Text(
-              "By using this app, you agree to our Terms of Service and Privacy Policy. We respect your privacy and only collect the information necessary to provide and improve our services. Your data will never be shared with third parties without your consent. You can read the full Terms and Policy in the settings menu. If you have any questions, feel free to contact us.",
-              style: TextStyle(fontSize: 20),
-            ),
+            child: Utilities.privacy_info(),
           ),
         ],
       ),
