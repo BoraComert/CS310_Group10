@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/terms_policy.dart';
+import 'package:flutter_demo/utils.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -74,9 +75,9 @@ class _RegisterState extends State<Register> {
 
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Text(
-                "By clicking continue, you agree to our",
-                style: TextStyle(fontSize: 15),
+              child: Utilities.buildText(
+                label: "By clicking continue, you agree to our",
+                size: 15,
               ),
             ),
             TextButton(
@@ -94,9 +95,9 @@ class _RegisterState extends State<Register> {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
               ),
-              child: Text(
-                "Terms & Privacy Policy",
-                style: TextStyle(color: Colors.black),
+              child: Utilities.buildText(
+                label: "Terms & Privacy Policy",
+                size: 15,
               ),
             ),
           ],
