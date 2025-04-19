@@ -16,18 +16,12 @@ class SuEvent {
   });
 }
 
-
-
-
 class Utilities {
-  static AppBar appBar(String title,Color color_) {
+  static AppBar appBar(String title, Color color_) {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
       centerTitle: true,
       backgroundColor: color_, // veya istediğin renk
@@ -47,7 +41,8 @@ class Utilities {
         labelText: label,
         border: const OutlineInputBorder(),
       ),
-      validator: validator ??
+      validator:
+          validator ??
           (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter $label';
@@ -56,76 +51,101 @@ class Utilities {
           },
     );
   }
-  static Text privacy_info(){
+
+  static Text privacy_info() {
     return Text(
       "By using this app, you agree to our Terms of Service and Privacy Policy. We respect your privacy and only collect the information necessary to provide and improve our services. Your data will never be shared with third parties without your consent. You can read the full Terms and Policy in the settings menu. If you have any questions, feel free to contact us.",
-              style: TextStyle(fontSize: 20),
+      style: TextStyle(fontSize: 20),
     );
   }
 
   static ElevatedButton createEventButton({
-  required GlobalKey<FormState> formKey,
-  required TextEditingController titleController,
-  required TextEditingController dateController,
-  required TextEditingController durationController,
-  required TextEditingController categoryController,
-  required TextEditingController infoController,
-  required BuildContext context,
-}) {
-  return ElevatedButton(
-    onPressed: () {
-      if (formKey.currentState!.validate()) {
-        final newEvent = SuEvent(
-          title: titleController.text,
-          date: dateController.text,
-          duration: durationController.text,
-          category: categoryController.text,
-          info: infoController.text,
-        );
+    required GlobalKey<FormState> formKey,
+    required TextEditingController titleController,
+    required TextEditingController dateController,
+    required TextEditingController durationController,
+    required TextEditingController categoryController,
+    required TextEditingController infoController,
+    required BuildContext context,
+  }) {
+    return ElevatedButton(
+      onPressed: () {
+        if (formKey.currentState!.validate()) {
+          final newEvent = SuEvent(
+            title: titleController.text,
+            date: dateController.text,
+            duration: durationController.text,
+            category: categoryController.text,
+            info: infoController.text,
+          );
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Event Successfully Created!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Event Successfully Created!'),
+              backgroundColor: Colors.green,
+            ),
+          );
 
-        Future.delayed(const Duration(milliseconds: 800), () {
-          Navigator.pop(context, newEvent);
-        });
-      }
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.black,
-      padding: const EdgeInsets.all(16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+          Future.delayed(const Duration(milliseconds: 800), () {
+            Navigator.pop(context, newEvent);
+          });
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        padding: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-    ),
-    child: const Text(
-      'Create Event',
-      style: TextStyle(color: Colors.white, fontSize: 16),
-    ),
-  );
-}
-
-static Padding customPaddingTextField({
-  required String label,
-  required TextEditingController controller,
-  EdgeInsetsGeometry padding = const EdgeInsets.all(30.0),
-  TextInputType keyboardType = TextInputType.text,
-}) {
-  return Padding(
-    padding: padding,
-    child: TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
+      child: const Text(
+        'Create Event',
+        style: TextStyle(color: Colors.white, fontSize: 16),
       ),
-    ),
-  );
-}
+    );
+  }
 
+  static Padding customPaddingTextField({
+    required String label,
+    required TextEditingController controller,
+    EdgeInsetsGeometry padding = const EdgeInsets.all(30.0),
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Padding(
+      padding: padding,
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  static Widget buildAuthButton({
+    required BuildContext context,
+    required String label,
+    required Widget destination,
+  }) {
+    return TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+      },
+      style: TextButton.styleFrom(
+        minimumSize: const Size(150, 60),
+        backgroundColor: Colors.black,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+      ),
+      child: Text(label, style: const TextStyle(color: Colors.white)),
+    );
+  }
+
+  static Text buildText({required String label, required double size}) {
+    return Text(label, style: TextStyle(fontSize: size,fontWeight: FontWeight.bold));
+  }
 }

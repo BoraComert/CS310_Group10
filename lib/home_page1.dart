@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/register.dart';
+import 'package:flutter_demo/utils.dart';
 import 'Login.dart';
 
 class HomePage1 extends StatelessWidget {
@@ -13,48 +14,21 @@ class HomePage1 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              "SuConnect",
-              style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-            ),
+            Utilities.buildText(label: "SuConnect", size: 50),
+
             Image.asset("assets/sabanci.png"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(
-                  onPressed: () {
-
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginClass()),
-                    );
-
-                  },
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(150, 60),
-                    backgroundColor: Colors.black,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                  ),
-                  child: Text("Login", style: TextStyle(color: Colors.white)),
+                Utilities.buildAuthButton(
+                  context: context,
+                  label: "Login",
+                  destination: LoginClass(),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Register()),
-                    );
-                  },
-
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(150, 60),
-                    backgroundColor: Colors.black,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                  ),
-                  child: Text("Sign Up", style: TextStyle(color: Colors.white)),
+                Utilities.buildAuthButton(
+                  context: context,
+                  label: "Sign Up",
+                  destination: Register(),
                 ),
               ],
             ),
