@@ -45,7 +45,6 @@ class _SettingsPageState extends State<SettingsPage> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           ),
           _buildTile('Categories'),
-          const SizedBox(height: 20),
           SizedBox(height: 60),
           _buildSectionTitle('Locations'),
           _buildTile('Campus'),
