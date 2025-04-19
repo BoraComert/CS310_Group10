@@ -37,27 +37,17 @@ class _LoginClassState extends State<LoginClass> {
                   "Log in with your Sabanci Email",
                   style: TextStyle(fontSize: 18),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'email@sabanciuniv.edu',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                Utilities.customPaddingTextField(
+                  label: 'email@sabanciuniv.edu',
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                ), 
+                Utilities.customPaddingTextField(
+                  label: "Password",
+                  controller: passwordController,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                  child: TextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
+                
                 SizedBox(height: 30),
                 TextButton(
                   onPressed: () {

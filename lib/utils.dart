@@ -63,4 +63,69 @@ class Utilities {
     );
   }
 
+  static ElevatedButton createEventButton({
+  required GlobalKey<FormState> formKey,
+  required TextEditingController titleController,
+  required TextEditingController dateController,
+  required TextEditingController durationController,
+  required TextEditingController categoryController,
+  required TextEditingController infoController,
+  required BuildContext context,
+}) {
+  return ElevatedButton(
+    onPressed: () {
+      if (formKey.currentState!.validate()) {
+        final newEvent = SuEvent(
+          title: titleController.text,
+          date: dateController.text,
+          duration: durationController.text,
+          category: categoryController.text,
+          info: infoController.text,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Event Successfully Created!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Future.delayed(const Duration(milliseconds: 800), () {
+          Navigator.pop(context, newEvent);
+        });
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.black,
+      padding: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+    child: const Text(
+      'Create Event',
+      style: TextStyle(color: Colors.white, fontSize: 16),
+    ),
+  );
+}
+
+static Padding customPaddingTextField({
+  required String label,
+  required TextEditingController controller,
+  EdgeInsetsGeometry padding = const EdgeInsets.all(30.0),
+  TextInputType keyboardType = TextInputType.text,
+}) {
+  return Padding(
+    padding: padding,
+    child: TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+    ),
+  );
+}
+
 }
