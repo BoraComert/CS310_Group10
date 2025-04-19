@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/categories.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -44,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
             activeColor: Colors.blue,
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           ),
-          _buildTile('Categories'),
+          _buildTile('Categories', destinationPage: const CategoriesPage()),
           const SizedBox(height: 20),
           SizedBox(height: 60),
           _buildSectionTitle('Locations'),
@@ -82,15 +83,23 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildTile(String title) {
-    return ListTile(
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 16),
-      ),
-      onTap: () {},
-      tileColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-    );
-  }
+  Widget _buildTile(String title, {Widget? destinationPage}) {
+  return ListTile(
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 16),
+    ),
+    onTap: destinationPage != null
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => destinationPage), // Navigate to the widget
+            );
+          }
+        : null, // If no page is passed, do nothing
+    tileColor: Colors.white,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+  );
+}
+  
 }
