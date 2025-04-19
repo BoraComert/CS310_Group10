@@ -5,21 +5,7 @@ import 'Create_Event_Screen.dart';
 import 'Upcoming_events.dart';  
 import 'utils.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const EventListScreen(),
-    );
-  }
-}
 
 class EventListScreen extends StatefulWidget {
   const EventListScreen({super.key});
@@ -249,16 +235,24 @@ class _EventListScreenState extends State<EventListScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // Navigate to the Create Event screen 
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CreateEventScreen()), // Create event screen
-          );
-        },
-        child: const Icon(Icons.add),
-        backgroundColor: Colors.blue,
-      ),
+  onPressed: () async {
+    // Wait for the new event to be created and returned
+    final newEvent = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CreateEventScreen()),
+    );
+
+    // If a new event was returned, add it to the event list
+    if (newEvent != null) {
+      setState(() {
+        myEvents.add(newEvent);  // Add the event to your events list
+      });
+    }
+  },
+  child: const Icon(Icons.add),
+  backgroundColor: Colors.blue,
+),
+
     );
   }
 }
