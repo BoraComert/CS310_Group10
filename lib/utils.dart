@@ -106,7 +106,7 @@ class Utilities {
   static Padding customPaddingTextField({
     required String label,
     required TextEditingController controller,
-    EdgeInsetsGeometry padding = const EdgeInsets.all(30.0),
+    EdgeInsetsGeometry padding = const EdgeInsets.all(10),
     TextInputType keyboardType = TextInputType.text,
   }) {
     return Padding(
@@ -148,11 +148,8 @@ class Utilities {
   static Text buildText({required String label, required double size}) {
     return Text(label, style: TextStyle(fontSize: size,fontWeight: FontWeight.bold));
   }
-}
 
-// options
-
-static Widget sectionTitle(String title) {
+  static Widget sectionTitle(String title) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 20, 0, 10),
     child: Text(
@@ -201,7 +198,15 @@ static Widget customTile({
   );
 }
 
+
+
 }
+
+// options
+
+
+
+
 
 
 
