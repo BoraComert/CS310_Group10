@@ -106,7 +106,7 @@ class Utilities {
   static Padding customPaddingTextField({
     required String label,
     required TextEditingController controller,
-    EdgeInsetsGeometry padding = const EdgeInsets.all(30.0),
+    EdgeInsetsGeometry padding = const EdgeInsets.all(10),
     TextInputType keyboardType = TextInputType.text,
   }) {
     return Padding(
@@ -148,4 +148,65 @@ class Utilities {
   static Text buildText({required String label, required double size}) {
     return Text(label, style: TextStyle(fontSize: size,fontWeight: FontWeight.bold));
   }
+
+  static Widget sectionTitle(String title) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(16, 20, 0, 10),
+    child: Text(
+      title,
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+    ),
+  );
 }
+
+static Widget sectionTitleWithIcon(String title, IconData icon) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(16, 20, 0, 10),
+    child: Row(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+        ),
+        const SizedBox(width: 8),
+        Icon(icon, size: 20),
+      ],
+    ),
+  );
+}
+
+static Widget customTile({
+  required BuildContext context,
+  required String title,
+  Widget? destinationPage,
+}) {
+  return ListTile(
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 16),
+    ),
+    onTap: destinationPage != null
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => destinationPage),
+            );
+          }
+        : null,
+    tileColor: Colors.white,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+  );
+}
+
+
+
+}
+
+// options
+
+
+
+
+
+
+
