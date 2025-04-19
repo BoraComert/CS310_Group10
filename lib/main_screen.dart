@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/Login.dart';
 import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
-import 'Upcoming_events.dart'; 
+import 'Upcoming_events.dart';  
 import 'utils.dart';
 
 void main() {
@@ -85,9 +85,10 @@ class _EventListScreenState extends State<EventListScreen> {
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                // Logic for settings page if needed, otherwise just show a message.
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Settings clicked!')),
+                // Navigate to Settings page when settings icon is pressed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingsPage()), // Settings page
                 );
               },
             ),
@@ -99,21 +100,30 @@ class _EventListScreenState extends State<EventListScreen> {
           Column(
             children: [
               // Tappable Upcoming Events title
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Upcoming Events',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+              GestureDetector(
+                onTap: () {
+                  // Navigate to Upcoming Events page when title is tapped
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const UpcomingEventsPage()), // Upcoming events page
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Upcoming Events',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.calendar_today, size: 24, color: Colors.black),
-                  ],
+                      Icon(Icons.calendar_today, size: 24, color: Colors.black),
+                    ],
+                  ),
                 ),
               ),
               // Upcoming Events List
@@ -210,20 +220,20 @@ class _EventListScreenState extends State<EventListScreen> {
                           const SizedBox(height: 4),
                           Text('Info: ${event.info}'),
                           const SizedBox(height: 12),
-                          
+                          // "Join" Button
                           ElevatedButton(
                             onPressed: () {
-                              
+                             
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('You have joined ${event.title}')),
                               );
                             },
                             child: const Text('Join'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue, 
-                              foregroundColor: Colors.white, 
+                              backgroundColor: Colors.blue, // Button color
+                              foregroundColor: Colors.white, // Text color
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8), 
+                                borderRadius: BorderRadius.circular(8), // Rounded corners
                               ),
                             ),
                           ),
@@ -240,9 +250,10 @@ class _EventListScreenState extends State<EventListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Create Event action triggered')),
+          // Navigate to the Create Event screen 
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateEventScreen()), // Create event screen
           );
         },
         child: const Icon(Icons.add),
