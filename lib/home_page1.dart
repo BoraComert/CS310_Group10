@@ -34,7 +34,7 @@ class HomePage1 extends StatelessWidget {
             ),
             Text(
               "Don't miss the events, live the moment!",
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
             ),
           ],
         ),
