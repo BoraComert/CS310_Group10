@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
 import 'package:flutter_demo/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'main_screen.dart';
 
 class LoginClass extends StatefulWidget {
@@ -15,8 +16,83 @@ class _LoginClassState extends State<LoginClass> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool email_checker(String entered_email) {
     return entered_email.endsWith('@sabanciuniv.edu');
+  }
+
+  Future<void> _loginUser(BuildContext context) async {
+    String email_user = emailController.text.trim();
+    String password_user = passwordController.text;
+
+    if (!email_checker(email_user)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please use your Sabanci email address."),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (password_user.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Password cannot be empty."),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email_user,
+        password: password_user,
+      );
+
+      User? user = userCredential.user;
+      if (user != null) {
+        if (user.emailVerified) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => EventListScreen()),
+          );
+        } else {
+          await _auth.signOut();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Please verify your email before logging in."),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      String message = "";
+      switch (e.code) {
+        case 'user-not-found':
+          message = "No user found with this email.";
+          break;
+        case 'wrong-password':
+          message = "Incorrect password.";
+          break;
+        case 'invalid-email':
+          message = "The email address is invalid.";
+          break;
+        default:
+          message = "Login failed: ${e.message}";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message), backgroundColor: Colors.red),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Unexpected error: ${e.toString()}")),
+      );
+    }
   }
 
   @override
@@ -41,45 +117,15 @@ class _LoginClassState extends State<LoginClass> {
                   label: 'email@sabanciuniv.edu',
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
-                ), 
+                ),
                 Utilities.customPaddingTextField(
                   label: "Password",
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                 ),
-                
                 SizedBox(height: 30),
                 TextButton(
-                  onPressed: () {
-                    String email_user = emailController.text.trim();
-                    String password_user = passwordController.text;
-
-                    if (!email_checker(email_user) && password_user.isNotEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Please use your Sabanci email address."),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-
-                    if (!email_checker(email_user) && password_user.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Password cannot be empty."),
-                          backgroundColor: Colors.orange,
-                        ),
-                      );
-                      return;
-                    }
-
-                    // Login successful
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EventListScreen()),
-                    );
-                  },
+                  onPressed: () => _loginUser(context),
                   style: TextButton.styleFrom(
                     minimumSize: Size(345, 60),
                     backgroundColor: Colors.black,
@@ -98,7 +144,7 @@ class _LoginClassState extends State<LoginClass> {
                 ),
                 TextButton(
                   onPressed: () {
-                    // reset logic buraya yazılabilir
+                    // TODO: add password reset logic here
                   },
                   style: TextButton.styleFrom(
                     minimumSize: Size(30, 20),
