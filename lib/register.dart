@@ -25,7 +25,17 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
+  
+
   Future<void> _registerUser() async {
+
+      if (!emailController.text.trim().endsWith('@sabanciuniv.edu')) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please use your Sabancı University email.")),
+    );
+    return;
+  }
+
     if (passwordController.text != passwordAgainController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Passwords do not match")),
