@@ -49,7 +49,7 @@ class _RegisterState extends State<Register> {
             ),
           ),
         );
-        await _auth.signOut(); // Optional: sign out after registration
+        await _auth.signOut(); // Sign the user out after registration to ensure only the verified enter
       }
     } on FirebaseAuthException catch (e) {
       String message = "";

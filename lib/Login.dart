@@ -78,9 +78,6 @@ class _LoginClassState extends State<LoginClass> {
         case 'wrong-password':
           message = "Incorrect password.";
           break;
-        case 'invalid-email':
-          message = "The email address is invalid.";
-          break;
         default:
           message = "Login failed: ${e.message}";
       }
@@ -88,11 +85,7 @@ class _LoginClassState extends State<LoginClass> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message), backgroundColor: Colors.red),
       );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Unexpected error: ${e.toString()}")),
-      );
-    }
+    } 
   }
 
   @override
