@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SuEvent {
@@ -198,7 +199,23 @@ static Widget customTile({
   );
 }
 
-
+static Widget logOut({
+  required BuildContext context,
+  required String title,
+}) {
+  return ListTile(
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 16),
+    ),
+    onTap: () async {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pop(context);
+    },
+    tileColor: Colors.white,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+  );
+}
 
 }
 

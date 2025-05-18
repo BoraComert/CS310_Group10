@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
 import 'package:flutter_demo/utils.dart';
@@ -54,12 +55,7 @@ class _LoginClassState extends State<LoginClass> {
 
       User? user = userCredential.user;
       if (user != null) {
-        if (user.emailVerified) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => EventListScreen()),
-          );
-        } else {
+        if (!user.emailVerified) {
           await _auth.signOut();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -67,6 +63,9 @@ class _LoginClassState extends State<LoginClass> {
               backgroundColor: Colors.orange,
             ),
           );
+
+        } else {
+          Navigator.pop(context);
         }
       }
     } on FirebaseAuthException catch (e) {

@@ -40,12 +40,14 @@ class _SettingsPageState extends State<SettingsPage> {
             title: 'Categories',
             destinationPage: const CategoriesPage(),
           ),
+
           const SizedBox(height: 20),
           const SizedBox(height: 60),
           Utilities.sectionTitle('Locations'),
           Utilities.customTile(context: context, title: 'Campus'),
           Utilities.customTile(context: context, title: 'Istanbul'),
           Utilities.customTile(context: context, title: 'Other'),
+          Utilities.logOut(context: context, title: 'LogOut')
         ],
       ),
     );
