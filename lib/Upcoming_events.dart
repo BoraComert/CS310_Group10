@@ -25,7 +25,7 @@ class _UpcomingEventsPageState extends State<UpcomingEventsPage> {
       DateTime.utc(2025, 4, 14): [
         SuEvent(
           title: 'Art Exhibition',
-          date: '2025-04-14',
+          date: DateTime(2025, 4, 20),
           duration: '2h',
           category: 'Art',
           info: 'Modern art display at campus center.',
@@ -34,7 +34,7 @@ class _UpcomingEventsPageState extends State<UpcomingEventsPage> {
       DateTime.utc(2025, 4, 16): [
         SuEvent(
           title: 'Hackathon',
-          date: '2025-04-16',
+          date: DateTime(2025, 4, 16),
           duration: '24h',
           category: 'Tech',
           info: '24-hour coding challenge with prizes.',

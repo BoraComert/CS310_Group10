@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SuEvent {
   final String title;
-  final String date;
+  final DateTime date;
   final String duration;
   final String category;
   final String info;
@@ -72,14 +72,22 @@ class Utilities {
     return ElevatedButton(
       onPressed: () {
         if (formKey.currentState!.validate()) {
-          final newEvent = SuEvent(
+          SuEvent? newEvent;
+          try {
+          final parsedDate = DateTime.parse(dateController.text);
+           newEvent = SuEvent(
             title: titleController.text,
-            date: dateController.text,
+            date:  parsedDate,
             duration: durationController.text,
             category: categoryController.text,
             info: infoController.text,
           );
-
+          } catch (e){
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Invalid date format. Use YYYY-MM-DD")),
+          );
+          return;
+          }
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Event Successfully Created!'),

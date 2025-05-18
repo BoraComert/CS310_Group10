@@ -18,21 +18,21 @@ class _EventListScreenState extends State<EventListScreen> {
   final List<SuEvent> events = [
     SuEvent(
       title: 'Art Exhibition',
-      date: 'April 20, 2025',
+      date: DateTime(2025, 4, 20),
       duration: '2 hours',
       category: 'Art',
       info: 'An exhibition showcasing local artists.',
     ),
     SuEvent(
       title: 'Tech Talk: Flutter',
-      date: 'April 22, 2025',
+      date: DateTime(2025, 4, 20),
       duration: '1.5 hours',
       category: 'Technology',
       info: 'A talk about developing apps with Flutter.',
     ),
     SuEvent(
       title: 'Music Night',
-      date: 'April 25, 2025',
+      date: DateTime(2025, 4, 20),
       duration: '3 hours',
       category: 'Entertainment',
       info: 'Live performances by student bands.',
@@ -42,14 +42,14 @@ class _EventListScreenState extends State<EventListScreen> {
   final List<SuEvent> myEvents = [
     SuEvent(
       title: 'Private Tech Workshop',
-      date: 'April 21, 2025',
+      date: DateTime(2025, 4, 20),
       duration: '2 hours',
       category: 'Technology',
       info: 'Exclusive workshop on Flutter development.',
     ),
     SuEvent(
       title: 'Charity Concert',
-      date: 'April 23, 2025',
+      date: DateTime(2025, 4, 20),
       duration: '3 hours',
       category: 'Charity',
       info: 'A concert for charity with various performances.',
