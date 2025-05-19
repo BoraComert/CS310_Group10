@@ -4,7 +4,7 @@ import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
 import 'package:flutter_demo/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'main_screen.dart';
+import 'main_screen.dart'; 
 
 class LoginClass extends StatefulWidget {
   const LoginClass({super.key});
@@ -63,9 +63,12 @@ class _LoginClassState extends State<LoginClass> {
               backgroundColor: Colors.orange,
             ),
           );
-
         } else {
-          Navigator.pop(context);
+        
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => EventListScreen()),
+          );
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -84,7 +87,7 @@ class _LoginClassState extends State<LoginClass> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message), backgroundColor: Colors.red),
       );
-    } 
+    }
   }
 
   @override

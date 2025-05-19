@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/categories.dart';
-import 'package:flutter_demo/utils.dart'; // Utilities import edildi
+import 'package:flutter_demo/utils.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

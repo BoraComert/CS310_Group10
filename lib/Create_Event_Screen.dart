@@ -17,6 +17,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final TextEditingController user_duration_controller = TextEditingController();
   final TextEditingController user_category_controller = TextEditingController();
   final TextEditingController user_info_controller = TextEditingController();
+  final TextEditingController user_hour_controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               const SizedBox(height: 12),
               Utilities.customTextField(
                 controller: user_date_controller,
-                label: "Date (05,30,2022) Month/Day/year",
+                label: "Date (YYYY-MM-DD) Year/Month/Day",
               ),
               
               const SizedBox(height: 12),
+              Utilities.customTextField(
+                controller: user_hour_controller,
+                label: "Exact hour and minute (HH:mm)"
+              ),
+
+              const SizedBox(height: 12,),
 
               Utilities.customTextField(
                 controller: user_duration_controller,
@@ -69,6 +76,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 categoryController: user_category_controller,
                 infoController: user_info_controller,
                 context: context,
+                hour_controller: user_hour_controller,
               )
             ],
           ),

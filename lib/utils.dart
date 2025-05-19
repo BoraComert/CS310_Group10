@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import "app_state.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SuEvent {
   final String title;
@@ -60,34 +62,70 @@ class Utilities {
     );
   }
 
-  static ElevatedButton createEventButton({
-    required GlobalKey<FormState> formKey,
-    required TextEditingController titleController,
-    required TextEditingController dateController,
-    required TextEditingController durationController,
-    required TextEditingController categoryController,
-    required TextEditingController infoController,
-    required BuildContext context,
-  }) {
-    return ElevatedButton(
-      onPressed: () {
-        if (formKey.currentState!.validate()) {
-          SuEvent? newEvent;
-          try {
-          final parsedDate = DateTime.parse(dateController.text);
-           newEvent = SuEvent(
+ 
+static ElevatedButton createEventButton({
+  required GlobalKey<FormState> formKey,
+  required TextEditingController titleController,
+  required TextEditingController dateController,
+  required TextEditingController durationController,
+  required TextEditingController categoryController,
+  required TextEditingController infoController,
+  required BuildContext context,
+  required TextEditingController hour_controller,
+}) {
+  return ElevatedButton(
+    onPressed: () async {
+      if (formKey.currentState!.validate()) {
+        // Saat doğrulama
+        final timeInput = hour_controller.text.trim();
+        final timeRegex = RegExp(r'^\d{2}:\d{2}$');
+
+        if (!timeRegex.hasMatch(timeInput)) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Invalid time format. Use HH:mm (e.g., 14:30)")),
+          );
+          return;
+        }
+
+        
+        final parts = timeInput.split(":");
+        final hour = int.tryParse(parts[0]);
+        final minute = int.tryParse(parts[1]);
+
+        if (hour == null || minute == null || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Hour must be 00-23 and minute must be 00-59")),
+          );
+          return;
+        }
+
+        SuEvent? newEvent;
+        try {
+          final parsedDate = DateTime.parse("${dateController.text} $timeInput");
+
+          newEvent = SuEvent(
             title: titleController.text,
-            date:  parsedDate,
+            date: parsedDate,
             duration: durationController.text,
             category: categoryController.text,
             info: infoController.text,
           );
-          } catch (e){
+        } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Invalid date format. Use YYYY-MM-DD")),
+            const SnackBar(content: Text("Invalid date format. Use YYYY-MM-DD")),
           );
           return;
-          }
+        }
+
+        try {
+          await FirebaseFirestore.instance.collection('events').add({
+            'title': newEvent.title,
+            'date': newEvent.date.toIso8601String(),
+            'duration': newEvent.duration,
+            'category': newEvent.category,
+            'info': newEvent.info,
+          });
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Event Successfully Created!'),
@@ -98,19 +136,31 @@ class Utilities {
           Future.delayed(const Duration(milliseconds: 800), () {
             Navigator.pop(context, newEvent);
           });
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Firebase error: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black,
-        padding: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      ),
-      child: const Text(
-        'Create Event',
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-    );
-  }
+      }
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.black,
+      padding: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+    child: const Text(
+      'Create Event',
+      style: TextStyle(color: Colors.white, fontSize: 16),
+    ),
+  );
+}
+
+
+
+
 
   static Padding customPaddingTextField({
     required String label,
