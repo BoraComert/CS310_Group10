@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
 import 'Upcoming_events.dart';
 import 'utils.dart';  // SuEvent modelinin olduğu dosya
@@ -23,9 +24,19 @@ class _EventListScreenState extends State<EventListScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+             const Text(
               'SuConnect',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                // Navigate to Settings page when settings icon is pressed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingsPage()), // Settings page
+                );
+              },
             ),
             const SizedBox(width: 48),
           ],
