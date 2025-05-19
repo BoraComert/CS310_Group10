@@ -98,19 +98,26 @@ class _EventListScreenState extends State<EventListScreen> {
                     parsedDate = DateTime.now();
                   }
 
-                  return SuEvent(
+                  return {
+                  'event': SuEvent(
                     title: data['title'] ?? '',
                     date: parsedDate,
                     duration: data['duration']?.toString() ?? '',
                     category: data['category']?.toString() ?? '',
                     info: data['info']?.toString() ?? '',
-                  );
+                  ),
+                  'docId': doc.id,
+                  'attendees': data['attendees'] ?? 0,
+                   };
                 }).toList();
 
                 return ListView.builder(
                   itemCount: events.length,
                   itemBuilder: (context, index) {
-                    final event = events[index];
+                  final eventData = events[index] as Map<String, dynamic>;
+                  final SuEvent event = eventData['event'];
+                  final String docId = eventData['docId'];
+                  final int attendees = eventData['attendees'];
                     return Container(
                       decoration: const BoxDecoration(
                         border: Border(
@@ -132,7 +139,10 @@ class _EventListScreenState extends State<EventListScreen> {
                             Text('Info: ${event.info}'),
                             const SizedBox(height: 12),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: ()  async {
+                                 await eventsCollection.doc(docId).update({
+                                  'attendees': FieldValue.increment(1),
+                                   });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('You have joined ${event.title}')),
                                 );
@@ -172,6 +182,7 @@ class _EventListScreenState extends State<EventListScreen> {
               'duration': newEvent.duration,
               'category': newEvent.category,
               'info': newEvent.info,
+              'attendees': 0,
             });
 
             ScaffoldMessenger.of(context).showSnackBar(
