@@ -121,6 +121,8 @@ class _EventListScreenState extends State<EventListScreen> {
                   final String docId = eventData['docId'];
                   final int attendees = eventData['attendees'];
                   final String creator = eventData['creator'];
+                  final currentUser = FirebaseAuth.instance.currentUser;
+                  final String? currentEmail = currentUser?.email;
 
                     return Container(
                       decoration: const BoxDecoration(
@@ -146,6 +148,27 @@ class _EventListScreenState extends State<EventListScreen> {
                               const SizedBox(height: 4),
                               Text('Attendees: $attendees'),
                               const SizedBox(height: 12),
+                              if (creator == currentEmail ) ...[
+                                const SizedBox(height: 8),
+                                ElevatedButton.icon(
+                                  onPressed: () async {
+                                  await eventsCollection.doc(docId).delete();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('${event.title} deleted.')),
+                                    );
+                                     },
+                                icon: const Icon(Icons.delete,color: Colors.white),
+                                label: const Text('Delete'),
+                                 style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                   ),
+                                  ),
+                                  ),
+                              ],
+
                             ElevatedButton(
                               onPressed: ()  async {
                                  await eventsCollection.doc(docId).update({
