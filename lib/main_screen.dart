@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/Options.dart';
 import 'Create_Event_Screen.dart';
@@ -174,7 +175,8 @@ class _EventListScreenState extends State<EventListScreen> {
             context,
             MaterialPageRoute(builder: (context) => const CreateEventScreen()),
           );
-
+        final currentUser = FirebaseAuth.instance.currentUser;
+        final userEmail = currentUser?.email!;
           if (newEvent != null) {
             await eventsCollection.add({
               'title': newEvent.title,
@@ -183,6 +185,7 @@ class _EventListScreenState extends State<EventListScreen> {
               'category': newEvent.category,
               'info': newEvent.info,
               'attendees': 0,
+              'creator': userEmail,
             });
 
             ScaffoldMessenger.of(context).showSnackBar(
