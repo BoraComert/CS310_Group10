@@ -64,7 +64,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               const SizedBox(height: 12),
               Utilities.customTextField(
                 controller: user_info_controller,
-                label: "Specific information (optional)",
+                label: "Specific information (Required)",
               ),
               
               const SizedBox(height: 20),
