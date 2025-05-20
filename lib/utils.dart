@@ -124,6 +124,7 @@ static ElevatedButton createEventButton({
             'duration': newEvent.duration,
             'category': newEvent.category,
             'info': newEvent.info,
+            'attendees': 0
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
