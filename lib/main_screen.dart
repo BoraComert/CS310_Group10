@@ -109,6 +109,7 @@ class _EventListScreenState extends State<EventListScreen> {
                   ),
                   'docId': doc.id,
                   'attendees': data['attendees'] ?? 0,
+                  'creator': data['creator'] ?? 'Unknown',
                    };
                 }).toList();
 
@@ -119,6 +120,8 @@ class _EventListScreenState extends State<EventListScreen> {
                   final SuEvent event = eventData['event'];
                   final String docId = eventData['docId'];
                   final int attendees = eventData['attendees'];
+                  final String creator = eventData['creator'];
+
                     return Container(
                       decoration: const BoxDecoration(
                         border: Border(
@@ -139,6 +142,10 @@ class _EventListScreenState extends State<EventListScreen> {
                             const SizedBox(height: 4),
                             Text('Info: ${event.info}'),
                             const SizedBox(height: 12),
+                              Text('Created by: $creator'),
+                              const SizedBox(height: 4),
+                              Text('Attendees: $attendees'),
+                              const SizedBox(height: 12),
                             ElevatedButton(
                               onPressed: ()  async {
                                  await eventsCollection.doc(docId).update({

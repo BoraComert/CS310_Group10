@@ -270,7 +270,6 @@ static Widget logOut({
     onTap: () async {
       await FirebaseAuth.instance.signOut();
       Navigator.pop(context);
-      Navigator.pop(context);
     },
     tileColor: Colors.white,
     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
