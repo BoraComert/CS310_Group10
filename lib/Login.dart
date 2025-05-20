@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/ChangePassword.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_demo/Create_Event_Screen.dart';
 import 'package:flutter_demo/terms_policy.dart';
@@ -139,7 +140,11 @@ class _LoginClassState extends State<LoginClass> {
                 ),
                 TextButton(
                   onPressed: () {
-                    // TODO: add password reset logic here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChangePassword()),
+                       );
+
                   },
                   style: TextButton.styleFrom(
                     minimumSize: Size(30, 20),
