@@ -110,6 +110,7 @@ class _EventListScreenState extends State<EventListScreen> {
                   'docId': doc.id,
                   'attendees': data['attendees'] ?? 0,
                   'creator': data['creator'] ?? 'Unknown',
+                  'joinedUsers': List<String>.from(data['joinedUsers'] ?? []),
                    };
                 }).toList();
 
@@ -123,6 +124,8 @@ class _EventListScreenState extends State<EventListScreen> {
                   final String creator = eventData['creator'];
                   final currentUser = FirebaseAuth.instance.currentUser;
                   final String? currentEmail = currentUser?.email;
+                  final List<String> joinedUsers = eventData['joinedUsers'];
+                  final bool isJoined = joinedUsers.contains(currentEmail);
 
                     return Container(
                       decoration: const BoxDecoration(
@@ -171,15 +174,27 @@ class _EventListScreenState extends State<EventListScreen> {
 
                             ElevatedButton(
                               onPressed: ()  async {
+                                if(isJoined){
                                  await eventsCollection.doc(docId).update({
-                                  'attendees': FieldValue.increment(1),
-                                  'joinedUsers': FieldValue.arrayUnion([currentEmail]),
+                                  
+                                  'attendees': FieldValue.increment(-1),
+                                  'joinedUsers': FieldValue.arrayRemove([currentEmail]),
                                    });
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('You have joined ${event.title}')),
-                                );
+                                         ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('You have left ${event.title}')),
+                                     );
+                                } else {
+                                   await eventsCollection.doc(docId).update({
+                                    'attendees': FieldValue.increment(1),
+                                    'joinedUsers': FieldValue.arrayUnion([currentEmail]),
+                                     });
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('You have joined ${event.title}')),
+                                        );
+                                        }
+                          
                               },
-                              child: const Text('Join'),
+                              child: Text(isJoined ? 'Leave' : 'Join'),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
