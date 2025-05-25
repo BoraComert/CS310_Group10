@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/Options.dart';
+import 'package:intl/intl.dart';
 import 'Create_Event_Screen.dart';
 import 'Upcoming_events.dart';
 import 'utils.dart';  // SuEvent modelinin olduğu dosya
@@ -16,6 +17,10 @@ class EventListScreen extends StatefulWidget {
 class _EventListScreenState extends State<EventListScreen> {
   final CollectionReference eventsCollection =
       FirebaseFirestore.instance.collection('events');
+
+  String _formatDateTime(DateTime dt) {
+  return DateFormat('MMMM d, HH:mm').format(dt.toLocal());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +145,7 @@ class _EventListScreenState extends State<EventListScreen> {
                           childrenPadding: const EdgeInsets.symmetric(horizontal: 16),
                           title: Text(event.title),
                           subtitle: Text(
-                              '${event.date.toLocal().toString().split(" ")[0]} • ${event.category}'),
+                              '${_formatDateTime(event.date)} • ${event.category}'),
                           children: [
                             const SizedBox(height: 8),
                             Text('Duration: ${event.duration}'),
