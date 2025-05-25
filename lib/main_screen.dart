@@ -173,6 +173,7 @@ class _EventListScreenState extends State<EventListScreen> {
                               onPressed: ()  async {
                                  await eventsCollection.doc(docId).update({
                                   'attendees': FieldValue.increment(1),
+                                  'joinedUsers': FieldValue.arrayUnion([currentEmail]),
                                    });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('You have joined ${event.title}')),
